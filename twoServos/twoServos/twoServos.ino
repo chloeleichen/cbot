@@ -15,10 +15,5 @@ void setup() {
 }
 
 void loop() {
-  delay(1000);
-  frontServo.write(180);
-  rearServo.write(180);
-  delay(1000);
-  frontServo.write(90);
-  rearServo.write(90);
+
 }
