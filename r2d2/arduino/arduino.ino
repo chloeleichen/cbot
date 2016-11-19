@@ -6,7 +6,7 @@
 #include <LiquidCrystal.h>
 
 
-char response = 'c';
+char response = 'a';
 // responseCode
 
 
@@ -46,9 +46,13 @@ void setup()
 }
 
 void loop()
-{
-  Serial.println(response);
-  Serial.println('a');
+{ 
+  rightArm.write(0);
+  leftArm.write(0);
+      
+  if (Serial.available()) {
+    response = Serial.read();
+  }
   switch(response) {
      case 'a'  :
         rest();
@@ -63,8 +67,11 @@ void loop()
      case 'd':
         catcall();
         break;
+     case 'e':
+         printSerialInput();
+        break;
      default :
-     return;
+        rest();
   }
 };
 
@@ -118,3 +125,22 @@ void catcall(){
   lcd.print("hi there");
   delay(1000);
 }
+
+
+void printSerialInput(){
+  // when characters arrive over the serial port...
+  if (Serial.available()) {
+    // wait a bit for the entire message to arrive
+    delay(100);
+    // clear the screen
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    // read all the available characters
+    while (Serial.available() > 0) {
+      // display each character to the LCD
+      lcd.write(Serial.read());
+    }
+  }
+}
+
+
