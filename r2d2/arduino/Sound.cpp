@@ -28,6 +28,10 @@ void Sound::beep (float noteFrequency, long noteDuration)
           } 
 }
 
+void Sound::pause(){
+  digitalWrite(_pin,LOW); 
+}
+
 void Sound::scale()
 {
           beep(note_C7,500); //C: play the note C for 500ms
@@ -71,26 +75,6 @@ void Sound::closeEncounters() {
           beep(note_Eb5,500); //E b
           delay(500);
 
-          beep(note_Bb4,300); //B b
-          delay(100);
-          beep(note_C5,300); //C
-          delay(100);
-          beep(note_Ab4,300); //A b
-          delay(100);
-          beep(note_Ab3,300); //A b
-          delay(100);
-          beep(note_Eb4,500); //E b
-          delay(500);
-
-          beep(note_Bb3,300); //B b
-          delay(200);
-          beep(note_C4,300); //C
-          delay(200);
-          beep(note_Ab3,300); //A b
-          delay(500);
-          beep(note_Ab2,300); //A b
-          delay(550);
-          beep(note_Eb3,500); //E b
 }
 
 void Sound::ariel() {

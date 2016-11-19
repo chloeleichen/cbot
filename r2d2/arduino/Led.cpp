@@ -11,10 +11,10 @@ Led::Led(int redPin, int greenPin, int bluePin)
   _bluePin = bluePin;
 }
 
-void Led::setColor(int red, int green, int blue)
+void Led::setColor(boolean* color)
 {
 
-  analogWrite(_redPin, red);
-  analogWrite(_greenPin, green);
-  analogWrite(_bluePin, blue);
+  digitalWrite(_redPin, color[0]);
+  digitalWrite(_greenPin, color[1]);
+  digitalWrite(_bluePin, color[2]);
 }

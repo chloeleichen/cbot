@@ -10,7 +10,7 @@ class Led
 {
   public:
     Led(int redPin, int greenPin, int bluePin);
-    void setColor(int red, int green, int blue);
+    void setColor(boolean* color);
   private:
     int _redPin;
     int _greenPin;

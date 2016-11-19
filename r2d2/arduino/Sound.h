@@ -7,6 +7,7 @@ class Sound
 {
 public:
   Sound(int pin);
+  void pause();
   void scale();
   void r2D2();
   void closeEncounters();
