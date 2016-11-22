@@ -20,8 +20,9 @@ void Sound::beep (float noteFrequency, long noteDuration)
   float loopTime = noteDuration * millisecondsPerCycle;
   // Play the note for the calculated loopTime.
   for (x=0;x<loopTime;x++)   
-          {   
+          {   analogWrite(_pin,100);
               digitalWrite(_pin,HIGH); 
+              analogWrite(_pin,100);
               delayMicroseconds(microsecondsPerWave); 
               digitalWrite(_pin,LOW); 
               delayMicroseconds(microsecondsPerWave); 

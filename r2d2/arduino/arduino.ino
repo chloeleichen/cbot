@@ -10,16 +10,17 @@ char response = 'a';
 // responseCode
 
 
-int speakerPin = 2;
-int laserPin = 3;
-int leftArmPin = 4;
-int rightArmPin = 5;
-int trigPin = 6;
-int echoPin = 7;
+int speakerPin = 8;
+int laserPin = 13;
+int leftArmPin = 9;
+int  rightArmPin = 10;
+int trigPin = 7;
+int echoPin = 6;
 
 Servo leftArm;
 Servo rightArm;
-LiquidCrystal lcd(13, 12, 11, 10, 9, 8);
+LiquidCrystal lcd(12,11,5,4,3,2);
+
 
 
 Sound sound(speakerPin);
@@ -37,26 +38,22 @@ void setup()
       Serial.begin(9600);
       leftArm.attach(leftArmPin);
       rightArm.attach(rightArmPin);
-      rightArm.write(0);
-      leftArm.write(0);
+      rightArm.write(20);
+      leftArm.write(20);
+      delay(1000);
       lcd.begin(16, 2);
-      laser.off();
       // Print a message to the LCD.
-      lcd.print("hi, I am R2!");
+      lcd.print("hello, world!");
 }
 
 void loop()
 { 
-  rightArm.write(0);
-  leftArm.write(0);
-      
   if (Serial.available()) {
     response = Serial.read();
   }
   switch(response) {
      case 'a'  :
-        rest();
-        break;
+        return;
      case 'b'  :
         greeting();
         rest();
@@ -71,15 +68,12 @@ void loop()
          printSerialInput();
         break;
      default :
-        rest();
+        return;
   }
 };
 
 
 void rest(){
-  lcd.clear();
-  rightArm.write(0);
-  leftArm.write(0);
   laser.off();
   sound.pause();
   response = 'a';
@@ -88,32 +82,35 @@ void rest(){
 
 void greeting(){
   lcd.clear();
-  rightArm.write(90);
-  lcd.print("hi, how are you?");
+  lcd.print("hello to you too");
   sound.ohhh();
+  leftArm.write(10);
+  delay(1000);
+  leftArm.write(70);
   delay(1000);
 }
 
 
 void danger(){
-  lcd.clear();
-  laser.off();
   int distance = sonar.ping_cm();
-  rightArm.write(90);
-  leftArm.write(90);
-  lcd.setCursor(0, 0);
-  lcd.print("do no approach!");
-  
-  sound.closeEncounters();
-  if(distance < 100){
+  if(distance < 20){
     lcd.clear();
+    rightArm.write(90);
     laser.on();
     lcd.setCursor(0, 0);
     lcd.print("distance:");
     lcd.print(distance);
     lcd.setCursor(0, 1);
-    lcd.println("shooting!");
-    sound.ariel();
+    lcd.println("shooting target");
+    sound.r2D2();
+  } else {
+    lcd.clear();
+    laser.off();
+    rightArm.write(10);
+    lcd.setCursor(0, 0);
+    lcd.print("do no approach!");
+    Serial.println(distance);
+    sound.closeEncounters();
   }
   delay(200);
 }
